@@ -3,11 +3,11 @@
   <title>Aurora`Blog</title>
   <icon>https://www.gravatar.com/avatar/94c6bbdec1db1aac454d6450d5f271b4</icon>
   <subtitle>生活明朗，万物可爱.</subtitle>
-  <link href="http://example.com/atom.xml" rel="self"/>
+  <link href="https://lang-1210.github.io/atom.xml" rel="self"/>
   
-  <link href="http://example.com/"/>
+  <link href="https://lang-1210.github.io/"/>
   <updated>2022-09-12T14:21:12.096Z</updated>
-  <id>http://example.com/</id>
+  <id>https://lang-1210.github.io/</id>
   
   <author>
     <name>Aurora</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>小程序开发</title>
-    <link href="http://example.com/posts/8d10680e.html"/>
-    <id>http://example.com/posts/8d10680e.html</id>
+    <link href="https://lang-1210.github.io/posts/8d10680e.html"/>
+    <id>https://lang-1210.github.io/posts/8d10680e.html</id>
     <published>2022-09-10T15:54:23.000Z</published>
     <updated>2022-09-12T14:21:12.096Z</updated>
     
@@ -38,8 +38,8 @@
   
   <entry>
     <title>测试</title>
-    <link href="http://example.com/posts/38c422a2.html"/>
-    <id>http://example.com/posts/38c422a2.html</id>
+    <link href="https://lang-1210.github.io/posts/38c422a2.html"/>
+    <id>https://lang-1210.github.io/posts/38c422a2.html</id>
     <published>2022-09-10T11:57:02.000Z</published>
     <updated>2022-09-12T16:26:19.232Z</updated>
     
@@ -61,8 +61,8 @@
   
   <entry>
     <title>Hello World</title>
-    <link href="http://example.com/posts/4a17b156.html"/>
-    <id>http://example.com/posts/4a17b156.html</id>
+    <link href="https://lang-1210.github.io/posts/4a17b156.html"/>
+    <id>https://lang-1210.github.io/posts/4a17b156.html</id>
     <published>2022-09-10T11:52:37.351Z</published>
     <updated>2022-09-12T14:21:12.132Z</updated>
     
