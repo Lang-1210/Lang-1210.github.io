@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.langxh.top/movies/index.html</loc>
+    
+    <lastmod>2022-09-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.langxh.top/link/index.html</loc>
+    
+    <lastmod>2022-09-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.langxh.top/posts/38c422a2.html</loc>
     
     <lastmod>2022-09-13</lastmod>
@@ -21,15 +39,6 @@
   
   <url>
     <loc>https://www.langxh.top/manifest.json</loc>
-    
-    <lastmod>2022-09-13</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.langxh.top/link/index.html</loc>
     
     <lastmod>2022-09-13</lastmod>
     
