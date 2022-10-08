@@ -160,35 +160,76 @@ div#category {
 
 /*夜间模式伪类遮罩层透明*/
 [data-theme='dark'] #recent-posts>.recent-post-item {
-    background: #121212;
+    /* background: #121212; */
+    backdrop-filter: blur(16px) saturate(181%);
+    -webkit-backdrop-filter: blur(16px) saturate(181%);
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
 }
 
 [data-theme='dark'] .card-widget {
-    background: #121212 !important;
+    /* background: #121212 !important; */
+    backdrop-filter: blur(16px) saturate(181%);
+    -webkit-backdrop-filter: blur(16px) saturate(181%);
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    border-radius: 12px;
 }
 
 [data-theme='dark'] div#post {
-    background: #121212 !important;
+    /* background: #121212 !important; */
+    backdrop-filter: blur(16px) saturate(181%);
+    -webkit-backdrop-filter: blur(16px) saturate(181%);
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    border-radius: 12px;
 }
 
 [data-theme='dark'] div#tag {
-    background: #121212 !important;
+    /* background: #121212 !important; */
+    backdrop-filter: blur(16px) saturate(181%);
+    -webkit-backdrop-filter: blur(16px) saturate(181%);
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    border-radius: 12px;
 }
 
 [data-theme='dark'] div#archive {
-    background: #121212 !important;
+    /* background: #121212 !important; */
+    backdrop-filter: blur(16px) saturate(181%);
+    -webkit-backdrop-filter: blur(16px) saturate(181%);
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    border-radius: 12px;
 }
 
 [data-theme='dark'] div#page {
-    background: #121212 !important;
+    /* background: #121212 !important; */
+    backdrop-filter: blur(16px) saturate(181%);
+    -webkit-backdrop-filter: blur(16px) saturate(181%);
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    border-radius: 12px;
 }
 
 [data-theme='dark'] div#category {
-    background: #121212 !important;
+    /* background: #121212 !important; */
+    backdrop-filter: blur(16px) saturate(181%);
+    -webkit-backdrop-filter: blur(16px) saturate(181%);
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    border-radius: 12px;
 }
 
 [data-theme='dark'] div#category {
-    background: transparent !important;
+    /* background: transparent !important; */
+    backdrop-filter: blur(16px) saturate(181%);
+    -webkit-backdrop-filter: blur(16px) saturate(181%);
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    border-radius: 12px;
+}
+
+/* 页脚 */
+[data-theme='dark'] div#category {
+    /* background: transparent !important; */
+    backdrop-filter: blur(16px) saturate(181%);
+    -webkit-backdrop-filter: blur(16px) saturate(181%);
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    border-radius: 12px;
 }
 
 /* 页脚透明 */
