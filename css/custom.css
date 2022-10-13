@@ -1,9 +1,10 @@
-/* @font-face {
-  font-family: Candyhome;
-  src: url(https://npm.elemecdn.com/anzhiyu-blog@1.1.6/fonts/Candyhome.ttf);
-  font-display: swap;
-  font-weight: lighter;
-} */
+@font-face {
+    font-family: Candyhome;
+    src: url(https://npm.elemecdn.com/anzhiyu-blog@1.1.6/fonts/Candyhome.ttf);
+    font-display: swap;
+    font-weight: lighter;
+}
+
 @font-face {
     font-family: ZhuZiAYuanJWD;
     src: url(https://npm.elemecdn.com/anzhiyu-blog@1.1.6/fonts/ZhuZiAWan.woff2);
@@ -12,6 +13,14 @@
 }
 
 div#menus {
+    font-family: 'ZhuZiAYuanJWD';
+}
+
+a {
+    cursor: pointer !important;
+}
+
+#subtitle {
     font-family: 'ZhuZiAYuanJWD';
 }
 
@@ -310,8 +319,8 @@ div#category {
 
 /* 鼠标图标 */
 body {
-    /* cursor: url('/img/x1.cur'), auto; */
-    cursor: pointer;
+    cursor: url('/img/star.png'), auto;
+    /* cursor: pointer; */
 }
 
 a,
@@ -319,7 +328,7 @@ a,
 [type='reset']:not(:disabled),
 [type='submit']:not(:disabled),
 button:not(:disabled) {
-    cursor: url('/img/x2.cur'), auto !important;
+    cursor: url('/img/star.png'), auto !important;
 }
 
 /* md网站下划线 */
