@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.langxh.top/posts/3a42db2d.html</loc>
+    
+    <lastmod>2022-12-03</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.langxh.top/posts/c24675b4.html</loc>
+    
+    <lastmod>2022-12-03</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.langxh.top/posts/822e8c32.html</loc>
     
     <lastmod>2022-10-13</lastmod>
@@ -148,7 +166,7 @@
 
   <url>
     <loc>https://www.langxh.top/</loc>
-    <lastmod>2022-10-13</lastmod>
+    <lastmod>2022-12-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -156,42 +174,56 @@
   
   <url>
     <loc>https://www.langxh.top/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/</loc>
-    <lastmod>2022-10-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.langxh.top/tags/PAT/</loc>
-    <lastmod>2022-10-13</lastmod>
+    <lastmod>2022-12-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.langxh.top/tags/ES6/</loc>
-    <lastmod>2022-10-13</lastmod>
+    <lastmod>2022-12-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.langxh.top/tags/Vue2/</loc>
-    <lastmod>2022-10-13</lastmod>
+    <lastmod>2022-12-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.langxh.top/tags/%E5%89%8D%E7%AB%AF/</loc>
-    <lastmod>2022-10-13</lastmod>
+    <lastmod>2022-12-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://www.langxh.top/tags/node/</loc>
-    <lastmod>2022-10-13</lastmod>
+    <lastmod>2022-12-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.langxh.top/tags/mysql/</loc>
+    <lastmod>2022-12-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.langxh.top/tags/PAT/</loc>
+    <lastmod>2022-12-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.langxh.top/tags/Vue3/</loc>
+    <lastmod>2022-12-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
