@@ -1,0 +1,494 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>node.js的基本使用 | Aurora`Blog</title><meta name="keywords" content="node"><meta name="author" content="Aurora,2933129083@qq.com"><meta name="copyright" content="Aurora"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Node.js 前提引入  javascript变量数据类型循环分支判断函数this作用域DOM BOM基于XMLHttpRequest的ajax  浏览器的javascript解析引擎Chrome V8DOM APIBOM APIAJAX API  浏览器提供了内置的api,然后我们进行调用 浏览器中的javascript运行环境 v8 引擎 解析执行code 内置api 提供特殊的接口">
+<meta property="og:type" content="article">
+<meta property="og:title" content="node.js的基本使用">
+<meta property="og:url" content="https://www.langxh.top/posts/822e8c32.html">
+<meta property="og:site_name" content="Aurora&#96;Blog">
+<meta property="og:description" content="Node.js 前提引入  javascript变量数据类型循环分支判断函数this作用域DOM BOM基于XMLHttpRequest的ajax  浏览器的javascript解析引擎Chrome V8DOM APIBOM APIAJAX API  浏览器提供了内置的api,然后我们进行调用 浏览器中的javascript运行环境 v8 引擎 解析执行code 内置api 提供特殊的接口">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic.imgdb.cn/item/6327454f16f2c2beb1d15418.png">
+<meta property="article:published_time" content="2022-09-18T16:20:15.000Z">
+<meta property="article:modified_time" content="2024-03-18T07:50:26.749Z">
+<meta property="article:author" content="Aurora">
+<meta property="article:tag" content="node">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic.imgdb.cn/item/6327454f16f2c2beb1d15418.png"><link rel="shortcut icon" href="/img/favicon/favicon.png"><link rel="canonical" href="https://www.langxh.top/posts/822e8c32"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="manifest" href="/manifest.json"/><meta name="msapplication-TileColor" content="#425aef"/><link rel="apple-touch-icon" sizes="180x180" href="/img/siteicon/128.png"/><link rel="icon" type="image/png" sizes="32x32" href="/img/siteicon/32.png"/><link rel="icon" type="image/png" sizes="16x16" href="/img/siteicon/16.png"/><link rel="mask-icon" href="/img/siteicon/128.png" color="#5bbad5"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.html","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":50,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":120},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'node.js的基本使用',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-03-18 15:50:26'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end start --><link rel="stylesheet" href="/css/runtime.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.cbd.int/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://cdn.cbd.int/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><link rel="stylesheet" href="https://cdn.cbd.int/hexo-butterfly-wowjs/lib/animate.min.css" media="print" onload="this.media='screen'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Aurora`Blog" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://pic.imgdb.cn/item/61580ee52ab3f51d91f9311c.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">8</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw fas fa-home faa-tada"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/categories/"><i class="fa-fw fas fa-folder-open faa-tada"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/tags/"><i class="fa-fw fas fa-tags faa-tada"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="javascript:void(0);"><i class="fa-fw fas fa-list faa-tada"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/music/"><i class="fa-fw fas fa-music faa-tada"></i><span> Music</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/movies/"><i class="fa-fw fas fa-video faa-tada"></i><span> Movie</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/photo/"><i class="fa-fw fas fa-images faa-tada"></i><span> Photo</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/archives/"><i class="fa-fw fas fa-archive faa-tada"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/comments/"><i class="fa-fw fas fa-envelope faa-tada"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/link/"><i class="fa-fw fas fa-link faa-tada"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/bangumis/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-bilibili1"></use></svg><span> 追番</span></a></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhifeiji"></use></svg><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://pic.imgdb.cn/item/6327454f16f2c2beb1d15418.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Aurora`Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/"><i class="fa-fw fas fa-home faa-tada"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/categories/"><i class="fa-fw fas fa-folder-open faa-tada"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/tags/"><i class="fa-fw fas fa-tags faa-tada"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="javascript:void(0);"><i class="fa-fw fas fa-list faa-tada"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child faa-parent animated-hover" href="/music/"><i class="fa-fw fas fa-music faa-tada"></i><span> Music</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/movies/"><i class="fa-fw fas fa-video faa-tada"></i><span> Movie</span></a></li><li><a class="site-page child faa-parent animated-hover" href="/photo/"><i class="fa-fw fas fa-images faa-tada"></i><span> Photo</span></a></li></ul></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/archives/"><i class="fa-fw fas fa-archive faa-tada"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/comments/"><i class="fa-fw fas fa-envelope faa-tada"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/link/"><i class="fa-fw fas fa-link faa-tada"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/bangumis/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-bilibili1"></use></svg><span> 追番</span></a></div><div class="menus_item"><a class="site-page faa-parent animated-hover" href="/about/"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-zhifeiji"></use></svg><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">node.js的基本使用</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-09-18T16:20:15.000Z" title="发表于 2022-09-19 00:20:15">2022-09-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-03-18T07:50:26.749Z" title="更新于 2024-03-18 15:50:26">2024-03-18</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="node.js的基本使用"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h3 id="Node-js"><a href="#Node-js" class="headerlink" title="Node.js"></a>Node.js</h3><hr>
+<p><strong>前提引入</strong></p>
+<blockquote>
+<p>javascript<br>变量<br>数据类型<br>循环<br>分支<br>判断<br>函数<br>this<br>作用域<br>DOM BOM<br>基于XMLHttpRequest的ajax</p>
+</blockquote>
+<p>浏览器的javascript解析引擎<br>Chrome V8<br>DOM API<br>BOM API<br>AJAX API</p>
+<ol>
+<li>浏览器提供了内置的api,然后我们进行调用</li>
+<li>浏览器中的javascript运行环境<ul>
+<li>v8 引擎 解析执行code</li>
+<li>内置api 提供特殊的接口</li>
+</ul>
+</li>
+</ol>
+<p><em>javascript依靠node也可以做后端</em></p>
+<h3 id="node-后端运行环境"><a href="#node-后端运行环境" class="headerlink" title="node 后端运行环境"></a>node 后端运行环境</h3><p><em>what is Node.js</em><br>JavaScript runtime built on Chorme v8 javascript engine<br>基于v8 引擎的javascript运行环境<br><div class="tip warning faa-horizontal animated"><p>注意</p>
+</div></p>
+<ol>
+<li>浏览器是javascript 的前端运行环境</li>
+<li>Node.js是JavaScript的后端运行环境</li>
+<li>Node.js 中无法调用DOM和BOM等浏览器内置api</li>
+</ol>
+<h3 id="Node-js-what-do"><a href="#Node-js-what-do" class="headerlink" title="Node.js what do ?"></a>Node.js what do ?</h3><p>快速构建Web应用 …<br><div class="note primary no-icon flat"><p>学习路径：javascript基础语法+Node.js内置api模块(fs,path,http)+第三方api模块(express、mysql)</p>
+</div></p>
+<h3 id="Node-js安装"><a href="#Node-js安装" class="headerlink" title="Node.js安装"></a>Node.js安装</h3><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://pic.imgdb.cn/item/6327454f16f2c2beb1d15418.png" alt="node"><br><div class="note primary no-icon flat"><p>LTS 稳定版</p>
+</div><br><div class="note primary no-icon flat"><p>Current 新特性</p>
+</div></p>
+<h3 id="node-模块"><a href="#node-模块" class="headerlink" title="node 模块"></a>node 模块</h3><h4 id="模块加载机制"><a href="#模块加载机制" class="headerlink" title="模块加载机制"></a>模块加载机制</h4><ol>
+<li>优先从缓存中加载</li>
+<li>内置模块的加载优先级最倒</li>
+<li>在加载模块时，如果没有执行./或../ 则node 会把它当做内置模块或第三方模块进行加载</li>
+<li>在导入模块时，如果没有加扩展名，node会按照顺序加载文件<ul>
+<li>按照确切的文件名加载</li>
+<li>补全.js扩展名</li>
+<li>补全.json扩展名</li>
+<li>补全.node 扩展名</li>
+<li>加载失败</li>
+</ul>
+</li>
+<li>第三方模块加载机制<br>从当前的父目录开始，如果没有找到第三方模块，逐级向上寻找指导根目录</li>
+<li>目录作为模块<ul>
+<li>package.json 指向main方法指向的.js文件</li>
+<li>没有package.json文件加载index.js</li>
+</ul>
+</li>
+</ol>
+<h4 id="自定义模块"><a href="#自定义模块" class="headerlink" title="自定义模块"></a>自定义模块</h4><h4 id="fs-文件系统模块"><a href="#fs-文件系统模块" class="headerlink" title="fs 文件系统模块"></a>fs 文件系统模块</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>)</span><br><span class="line">fs.<span class="title function_">readFile</span>()</span><br><span class="line">fs.<span class="title function_">writeFile</span>()</span><br></pre></td></tr></table></figure>
+<h4 id="path-路劲模块"><a href="#path-路劲模块" class="headerlink" title="path 路劲模块"></a>path 路劲模块</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path=<span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>)</span><br><span class="line">path.<span class="title function_">join</span>()</span><br><span class="line">path.<span class="title function_">basename</span>()</span><br></pre></td></tr></table></figure>
+<h4 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h4><p><strong>向外共享模块作用域中的成员</strong><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> <span class="comment">//将模块内的成员共享出去，供外界使用</span></span><br></pre></td></tr></table></figure><br><strong>最终以module.exports为准</strong><br>为了不发生混乱要么使用exports或module.exports之一</p>
+<h4 id="node-js中的模块规范化"><a href="#node-js中的模块规范化" class="headerlink" title="node.js中的模块规范化"></a>node.js中的模块规范化</h4><ol>
+<li>CommonJs规定了模块的特性和各模块之间如何相互依赖</li>
+<li>加载某个模时，其实是加载该模块的module.exports属性，require()方法用于加载模块</li>
+</ol>
+<h3 id="npm包"><a href="#npm包" class="headerlink" title="npm包"></a>npm包</h3><ol>
+<li>node.js第三方模块又叫<strong>包</strong></li>
+<li>基于内置模块封装</li>
+<li><strong>包</strong>和<strong>内置模块</strong>类似于<strong>JQuery</strong>和<strong>浏览器内置API</strong>之间的关系</li>
+</ol>
+<p>安装包<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npm install 包名</span><br><span class="line">npm i 报名</span><br><span class="line"><span class="comment">#安装指定版本</span></span><br><span class="line">npm i @xx.xx.x </span><br></pre></td></tr></table></figure></p>
+<h4 id="包管理配置文件"><a href="#包管理配置文件" class="headerlink" title="包管理配置文件"></a>包管理配置文件</h4><p><code>package.json</code><br><div class="note primary no-icon flat"><p>在执行命令所在的目录中，快速新建package.json 文件</p>
+</div><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm init -y</span><br></pre></td></tr></table></figure><br>npm包管理工具会自动把包管理名称和版本号记录在package.json中</p>
+<p><strong>当node_modules文件夹被删除后</strong><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 一次性安装package.json中的所用包或指定的包</span></span><br><span class="line">npm i</span><br><span class="line">npm i 包名</span><br></pre></td></tr></table></figure><br><strong>卸载包</strong><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm uninstall 包名</span><br></pre></td></tr></table></figure><br><strong>如果某些包只在开发中使用上线后不会用到</strong></p>
+<ul>
+<li>将该包放到devDependencies 节点中<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm i 包名 -D</span><br><span class="line"><span class="comment">// 或</span></span><br><span class="line">npm i 包名 --save-dev</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>如果某些包在开发和上线后都会用到</strong></p>
+<ul>
+<li>将该包放到dependencies 节点中<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i 包名 --save </span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>解决包下载包慢问题</strong></p>
+<ul>
+<li>默认国外</li>
+</ul>
+<p>使用国内镜像<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">淘宝npm镜像</span><br><span class="line"> ·搜索地址：http://npm.taobao.org/</span><br><span class="line">           https://registry.npmmirror.com/</span><br><span class="line"> ·registry地址：http://registry.npm.taobao.org/</span><br></pre></td></tr></table></figure><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cnpmjs镜像</span><br><span class="line"> ·搜索地址：http://cnpmjs.org/</span><br><span class="line"> ·registry地址：http://r.cnpmjs.org/</span><br></pre></td></tr></table></figure><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看当前下包镜像源</span></span><br><span class="line">npm config get registry</span><br><span class="line"><span class="comment"># 切换镜像为淘宝镜像</span></span><br><span class="line">npm config <span class="built_in">set</span> registry=http://registry.npm.taobao.org/</span><br><span class="line"><span class="comment"># 检查镜像源是否配置成功</span></span><br><span class="line">npm config get registry</span><br></pre></td></tr></table></figure></p>
+<p><strong>永久配置</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> registry https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure><br><strong>还原配置</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># https://registry.npmjs.org/</span></span><br><span class="line">npm config <span class="built_in">set</span> registry https://registry.npmjs.org/</span><br></pre></td></tr></table></figure><br>淘宝npm镜像站全新上线，Web界面地址：<a target="_blank" rel="noopener" href="https://npmmirror.com">https://npmmirror.com</a>；npm 客户端使用地址：<a target="_blank" rel="noopener" href="https://registry.npmmirror.com/">https://registry.npmmirror.com/</a></p>
+<h4 id="nrm"><a href="#nrm" class="headerlink" title="nrm"></a>nrm</h4><p>快速查看和切换下包镜像源<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通过npm包管理器，将nrm安装为全局可用工具</span></span><br><span class="line">npm i nrm -g</span><br><span class="line"><span class="comment"># 查看所有可用镜像源</span></span><br><span class="line">nrm <span class="built_in">ls</span></span><br><span class="line"><span class="comment"># 下载包镜像源切换为taobao</span></span><br><span class="line">nrm use taobao</span><br></pre></td></tr></table></figure></p>
+<h4 id="包的分类"><a href="#包的分类" class="headerlink" title="包的分类"></a>包的分类</h4><p>项目包分为两类:</p>
+<ul>
+<li>开发依赖包 (devDependencies 结点中的包，只在开开发期间用到) </li>
+<li>核心依赖包 (dependencies 结点中的包，在开发期间和项目上线都会用到)</li>
+</ul>
+<p><strong>全局包</strong><br><em>我的</em><br>D:\nodejs\node_global\node_modules<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装全局包 -g</span></span><br><span class="line">npm i [package_name] -g</span><br><span class="line">npm install [package_name] -g </span><br></pre></td></tr></table></figure><br>判断是否要安装全局包看<a target="_blank" rel="noopener" href="https://www.npmjs.com/">官方文档</a></p>
+<p><strong>包的分类</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将i5ting_toc安装为全局包</span></span><br><span class="line">npm install -g i5ting_toc</span><br><span class="line"><span class="comment"># 调用i5ting_toc 轻松实现md转html的功能</span></span><br><span class="line">i5ting_toc -f 要转换的.md文件路径 -o</span><br></pre></td></tr></table></figure></p>
+<h3 id="发布自己的包"><a href="#发布自己的包" class="headerlink" title="发布自己的包"></a>发布自己的包</h3><ol>
+<li>先在npm官网注册账号，让后在终端执行以下<br><a target="_blank" rel="noopener" href="https://www.npmjs.com/">npm官网</a></li>
+<li>发布前看一看npm镜像是不是官方的镜像若不是则要切换过来（切换为官方镜像） <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nrm <span class="built_in">ls</span> <span class="comment"># 查看所有镜像</span></span><br><span class="line">npm config get registry <span class="comment"># 查看当前镜像</span></span><br><span class="line">nrm use xxx(镜像名)  <span class="comment"># 切换镜像</span></span><br></pre></td></tr></table></figure></li>
+<li><p>切换后执行以下</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">PS D:\Web前端学习\NodeJsStudy&gt; npm login</span><br><span class="line">Username: lang1210  <span class="comment"># 用户名</span></span><br><span class="line">Password:     <span class="comment"># 密码（会被隐藏）</span></span><br><span class="line">Email: (this IS public) 2933129083@qq.com  <span class="comment">#电子邮件</span></span><br><span class="line">npm notice Please check your email <span class="keyword">for</span> a one-time password (OTP)</span><br><span class="line"><span class="comment"># 输入npm 发来的邮件里的OPT code (这里是30736811 )</span></span><br><span class="line">Enter one-time password from your authenticator app: 30736811 </span><br><span class="line"><span class="comment"># 成功后的结果</span></span><br><span class="line">Logged <span class="keyword">in</span> as lang1210 on https://registry.npmjs.org/.</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>发布</p>
+<div class="tip warning faa-horizontal animated"><p>注意包名不能相同，发布前先在官网看一看有没有和自己同名的包</p>
+</div>
+<p>切换到包的目录下执行</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm publish</span><br></pre></td></tr></table></figure>
+<div class="tip success faa-horizontal animated"><p>success</p>
+</div>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">PS D:\Web前端学习\NodeJsStudy&gt; <span class="built_in">cd</span> .\alang-tools\</span><br><span class="line">PS D:\Web前端学习\NodeJsStudy\alang-tools&gt; npm publish</span><br><span class="line">npm notice</span><br><span class="line">npm notice package: alang-tools@1.0.0</span><br><span class="line">npm notice === Tarball Contents ===  </span><br><span class="line">npm notice 364B  dist/01.test.dev.js       </span><br><span class="line">npm notice 535B  src/dist/dateFormat.dev.js</span><br><span class="line">npm notice 565B  src/dateFormat.js</span><br><span class="line">npm notice 727B  src/dist/htmlEscape.dev.js</span><br><span class="line">npm notice 831B  src/htmlEscape.js</span><br><span class="line">npm notice 1.2kB dist/index.dev.js</span><br><span class="line">npm notice 260B  index.js</span><br><span class="line">npm notice 226B  package.json</span><br><span class="line">npm notice 701B  README.md</span><br><span class="line">npm notice === Tarball Details ===</span><br><span class="line">npm notice name:          alang-tools</span><br><span class="line">npm notice version:       1.0.0</span><br><span class="line">npm notice package size:  2.1 kB</span><br><span class="line">npm notice unpacked size: 5.5 kB</span><br><span class="line">npm notice shasum:        682e3bfec7a63d51a9fbab0916468a754fdfec43</span><br><span class="line">npm notice integrity:     sha512-OdnieY0Ir5lxS[...]MfyyyJfVi/n/Q==</span><br><span class="line">npm notice total files:   9</span><br><span class="line">npm notice</span><br><span class="line">+ alang-tools@1.0.0</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除包</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm unpublish 包名 --force</span><br></pre></td></tr></table></figure>
+<div class="tip warning faa-horizontal animated"><p>注意</p>
+</div>
+<p> (1) 只能删除72小时内发布的包<br> (2) 删除的包，在24小时之内不允许重复发布<br> (3) 要慎重，不要发没意义的包（练练手可还行）</p>
+</li>
+</ol>
+<h3 id="express"><a href="#express" class="headerlink" title="express"></a>express</h3><p><a target="_blank" rel="noopener" href="https://www.expressjs.com.cn/starter/installing.html">官方文档</a></p>
+<ol>
+<li>express基于内置http模块封装得到（提高开发效率）</li>
+<li>类似于Web Api和Jquery 的关系</li>
+<li>能做什么<ul>
+<li>Web网站服务器</li>
+<li>API 接口服务器</li>
+</ul>
+</li>
+<li>安装<br><code>npm install express --save</code></li>
+<li>创建web服务器</li>
+<li>托管静态资源<ul>
+<li>express.static</li>
+</ul>
+</li>
+<li>自动启动项目（修改代码后不需重启）<br>nodemon test.js</li>
+<li>路由<br>客户端请求与服务端处理函数之间的额映射关系<br>路由匹配</li>
+</ol>
+<h4 id="模块化路由"><a href="#模块化路由" class="headerlink" title="模块化路由"></a>模块化路由</h4><p>不挂载在app上</p>
+<ol>
+<li>创建路由.js文件</li>
+<li>调用express.Router()</li>
+<li>向路由对象上挂载具体的路由</li>
+<li>使用module.exports()向外分享路由对象</li>
+<li>使用app.use()函数注册路由模块</li>
+</ol>
+<h4 id="中间件"><a href="#中间件" class="headerlink" title="中间件"></a>中间件</h4><p>中间件函数的形参列表中，必须包含next参数<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">get</span>(<span class="string">&#x27;/&#x27;</span>,<span class="keyword">function</span>(<span class="params">req,res,next</span>)&#123;</span><br><span class="line">    <span class="title function_">next</span>()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure><br>实现对某个中间件连续调用的关键，它表示把流转关系转交给下一个中间件或路由<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://pic.imgdb.cn/item/6327455116f2c2beb1d155dd.png" alt="中间件"></p>
+<ul>
+<li>路由之前定义中间件</li>
+<li>调用next()之后不能写其他的代码</li>
+<li>应用级别的中间件绑定到了app上，路由级别的中间件绑定到了router上</li>
+</ul>
+<ol>
+<li>错误级别的中间件在路由之后</li>
+<li>express 内置中间件<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">express.<span class="title function_">static</span>()</span><br><span class="line">express.<span class="title function_">json</span>()</span><br><span class="line">express.<span class="title function_">urlencode</span>(&#123;<span class="attr">extend</span>:<span class="literal">false</span>&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h4 id="静态资源管理"><a href="#静态资源管理" class="headerlink" title="静态资源管理"></a>静态资源管理</h4><h4 id="路由匹配"><a href="#路由匹配" class="headerlink" title="路由匹配"></a>路由匹配</h4><h4 id="ExpressApi"><a href="#ExpressApi" class="headerlink" title="ExpressApi"></a>ExpressApi</h4><h5 id="接口跨域问题-access-control-allow"><a href="#接口跨域问题-access-control-allow" class="headerlink" title="接口跨域问题 access-control-allow-"></a>接口跨域问题 access-control-allow-</h5><ul>
+<li>origin</li>
+<li>header</li>
+<li>methods<br>res.setOrigin()<br>ser.setHeader()</li>
+</ul>
+<h5 id="使用cors中间件"><a href="#使用cors中间件" class="headerlink" title="使用cors中间件"></a>使用cors中间件</h5><ol>
+<li>npm instll cors</li>
+<li>const cors=require(‘cors’)</li>
+<li>app.use(cors())</li>
+</ol>
+<h5 id="简单请求和预检请求"><a href="#简单请求和预检请求" class="headerlink" title="简单请求和预检请求"></a>简单请求和预检请求</h5><pre><code>简单请求1次
+预检请求2次
+
+|  简单请求     |  预检请求   |
+| :---        |    :----:   | :----:| 
+| 客户端与服务器      | 1      |2 (OPTION成功之后)|
+| 类别  | post get        | delete header|
+</code></pre><h5 id="JSONP"><a href="#JSONP" class="headerlink" title="JSONP"></a>JSONP</h5><h3 id="mysql-数据库操作"><a href="#mysql-数据库操作" class="headerlink" title="mysql 数据库操作"></a>mysql 数据库操作</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 安装mysql包</span></span><br><span class="line">npm i mysql</span><br><span class="line"><span class="comment">// 导入</span></span><br><span class="line"><span class="keyword">const</span> mysql = <span class="built_in">require</span>(<span class="string">&#x27;mysql&#x27;</span>)</span><br><span class="line"><span class="comment">// 连接</span></span><br><span class="line"><span class="keyword">const</span> conn = mysql.<span class="title function_">createPool</span>(&#123;</span><br><span class="line">    <span class="attr">host</span>: <span class="string">&#x27;127.0.0.1&#x27;</span>,</span><br><span class="line">    <span class="attr">port</span>: <span class="number">3306</span>,</span><br><span class="line">    <span class="attr">user</span>: <span class="string">&#x27;root&#x27;</span>,</span><br><span class="line">    <span class="attr">password</span>: <span class="string">&#x27;password&#x27;</span>,</span><br><span class="line">    <span class="attr">database</span>: <span class="string">&#x27;databaseName&#x27;</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 操作</span></span><br><span class="line">conn.<span class="title function_">query</span>(sql, [params1,params2...],<span class="function">(<span class="params">err, results</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) <span class="keyword">return</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(err.<span class="property">message</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="Web开发模式"><a href="#Web开发模式" class="headerlink" title="Web开发模式"></a>Web开发模式</h3><ol>
+<li>前后端分离<ul>
+<li>前端UI</li>
+<li>后端API</li>
+</ul>
+</li>
+<li>根据具体业务场景<ul>
+<li>良好SEO，服务器渲染（企业级网站）</li>
+<li>交互性好，不考虑SEO，前后端分离（后台管理）</li>
+</ul>
+</li>
+</ol>
+<h4 id="前后端的身份认证（token-jwt）"><a href="#前后端的身份认证（token-jwt）" class="headerlink" title="前后端的身份认证（token,jwt）"></a>前后端的身份认证（token,jwt）</h4><ol>
+<li>身份认证<ul>
+<li>服务端渲染<ul>
+<li>Session 认证机制</li>
+</ul>
+</li>
+<li>前后端分离<ul>
+<li>JWT认证机制</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h4 id="Session认证机制"><a href="#Session认证机制" class="headerlink" title="Session认证机制"></a>Session认证机制</h4><h4 id="前后端分离模式"><a href="#前后端分离模式" class="headerlink" title="前后端分离模式"></a>前后端分离模式</h4><ol>
+<li>后端提供 api，前端通过 ajax 调用接口的开发模式</li>
+<li>减轻服务端的压力</li>
+<li><p>不利于 seo,因为完整的 html 页面在客户端动态拼接完成，所以爬虫无法爬取页面的有效信息（但可通过 vue,react 的 ssr 解决）</p>
+</li>
+<li><p>服务端渲染 session 认证</p>
+</li>
+<li>前后端分离 jwt 认证</li>
+</ol>
+<h4 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h4><ol>
+<li>自动发送、域名独立、过期时间、4KB 限制</li>
+</ol>
+<h4 id="session"><a href="#session" class="headerlink" title="session"></a>session</h4><ol>
+<li>通过 session 在服务端生成 cookie</li>
+<li>session 使用</li>
+</ol>
+<h4 id="jwt-认证机制"><a href="#jwt-认证机制" class="headerlink" title="jwt 认证机制"></a>jwt 认证机制</h4><ol>
+<li>目前最流行的跨域认证解决方案<br><strong>用户的信息通过 Token 字符串的形式，保存在客户端浏览器中，服务器通过还原 Token 字符串的形式来认证用户身份</strong></li>
+<li>jwt 组成：header,Payload,Signature(格式用逗号分隔：header.Payload.Signature)</li>
+<li><p>每部分的含义</p>
+<ul>
+<li>payload 部分才是真正的用户信息，它是用户信息经过加密后生成的字符串</li>
+<li>header 和 signature 是安全相关的部分，只是为了保证 Token 的安全</li>
+</ul>
+</li>
+<li><p>客户端收到服务器发送的 JWT 后通常将他存储在 loaclStorage 或 sessionStorage 中</p>
+</li>
+<li>JWT 放在 http 请求头的 Authoriaztion 中（<code>Authorization: Bearer &lt;token&gt;</code>）</li>
+<li>express 中使用 jwt</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/express-jwt">express-jwt文档</a><br><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/jsonwebtoken">jsonwebtoken文档</a></p>
+<ol>
+<li>加密(jsonwebtoken)解密(express-jwt)将 jwt 字符串还原为 json 对象的 secret 密钥</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://www.langxh.top">Aurora</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://www.langxh.top/posts/822e8c32.html">https://www.langxh.top/posts/822e8c32.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.langxh.top" target="_blank">Aurora`Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/node/">node</a></div><div class="post_share"><div class="social-share" data-image="https://pic.imgdb.cn/item/6327454f16f2c2beb1d15418.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><link rel="stylesheet" href="/css/coin/coin.css" media="defer" onload="this.media='all'"/><div class="post-reward"><button class="tip-button reward-button"><span class="tip-button__text">不给糖果就捣蛋</span><div class="coin-wrapper"><div class="coin"><div class="coin__middle"></div><div class="coin__back"></div><div class="coin__front"></div></div></div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-weichat.png" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://npm.elemecdn.com/anzhiyu-blog@1.1.6/img/post/common/qrcode-alipay.png" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></button></div><audio id="coinAudio" src="https://cdn.cbd.int/akilar-candyassets@1.0.36/audio/aowu.m4a"></audio><script defer="defer" src="/js/coin/coin.js"></script><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/a324b661.html"><img class="prev-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://pic.imgdb.cn/item/6165a94f2ab3f51d91729e58.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Vue2复习</div></div></a></div><div class="next-post pull-right"><a href="/posts/220549a8.html"><img class="next-cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://pic.imgdb.cn/item/6324af2b16f2c2beb1fb043c.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">天梯赛练习题</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://pic.imgdb.cn/item/61580ee52ab3f51d91f9311c.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Aurora</div><div class="author-info__description">一个收藏回忆与分享技术的地方</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">8</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Lang-1210"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon faa-parent animated-hover" href="https://github.com/Lang-1210" target="_blank" title="Github"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-gitHub"></use></svg></a><a class="social-icon faa-parent animated-hover" href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&amp;email=2933129083@qq.com" target="_blank" title="Email"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-youxiang"></use></svg></a><a class="social-icon faa-parent animated-hover" href="https://bilibili.com/" target="_blank" title="BiliBili"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-bilibili"></use></svg></a><a class="social-icon faa-parent animated-hover" href="tencent://Message/?Uin=2268025923&amp;amp;websiteName=local.edu.com:8888=&amp;amp;Menu=yes" target="_blank" title="QQ"><svg class="icon faa-tada" aria-hidden="true"><use xlink:href="#icon-QQ1"></use></svg></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Node-js"><span class="toc-number">1.</span> <span class="toc-text">Node.js</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#node-%E5%90%8E%E7%AB%AF%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83"><span class="toc-number">2.</span> <span class="toc-text">node 后端运行环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Node-js-what-do"><span class="toc-number">3.</span> <span class="toc-text">Node.js what do ?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Node-js%E5%AE%89%E8%A3%85"><span class="toc-number">4.</span> <span class="toc-text">Node.js安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#node-%E6%A8%A1%E5%9D%97"><span class="toc-number">5.</span> <span class="toc-text">node 模块</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A8%A1%E5%9D%97%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6"><span class="toc-number">5.1.</span> <span class="toc-text">模块加载机制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9D%97"><span class="toc-number">5.2.</span> <span class="toc-text">自定义模块</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#fs-%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E6%A8%A1%E5%9D%97"><span class="toc-number">5.3.</span> <span class="toc-text">fs 文件系统模块</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#path-%E8%B7%AF%E5%8A%B2%E6%A8%A1%E5%9D%97"><span class="toc-number">5.4.</span> <span class="toc-text">path 路劲模块</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="toc-number">5.5.</span> <span class="toc-text">作用域</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#node-js%E4%B8%AD%E7%9A%84%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83%E5%8C%96"><span class="toc-number">5.6.</span> <span class="toc-text">node.js中的模块规范化</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#npm%E5%8C%85"><span class="toc-number">6.</span> <span class="toc-text">npm包</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8C%85%E7%AE%A1%E7%90%86%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">6.1.</span> <span class="toc-text">包管理配置文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#nrm"><span class="toc-number">6.2.</span> <span class="toc-text">nrm</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8C%85%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-number">6.3.</span> <span class="toc-text">包的分类</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%91%E5%B8%83%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8C%85"><span class="toc-number">7.</span> <span class="toc-text">发布自己的包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#express"><span class="toc-number">8.</span> <span class="toc-text">express</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A8%A1%E5%9D%97%E5%8C%96%E8%B7%AF%E7%94%B1"><span class="toc-number">8.1.</span> <span class="toc-text">模块化路由</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%AD%E9%97%B4%E4%BB%B6"><span class="toc-number">8.2.</span> <span class="toc-text">中间件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86"><span class="toc-number">8.3.</span> <span class="toc-text">静态资源管理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B7%AF%E7%94%B1%E5%8C%B9%E9%85%8D"><span class="toc-number">8.4.</span> <span class="toc-text">路由匹配</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ExpressApi"><span class="toc-number">8.5.</span> <span class="toc-text">ExpressApi</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98-access-control-allow"><span class="toc-number">8.5.1.</span> <span class="toc-text">接口跨域问题 access-control-allow-</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8cors%E4%B8%AD%E9%97%B4%E4%BB%B6"><span class="toc-number">8.5.2.</span> <span class="toc-text">使用cors中间件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E8%AF%B7%E6%B1%82%E5%92%8C%E9%A2%84%E6%A3%80%E8%AF%B7%E6%B1%82"><span class="toc-number">8.5.3.</span> <span class="toc-text">简单请求和预检请求</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#JSONP"><span class="toc-number">8.5.4.</span> <span class="toc-text">JSONP</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mysql-%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C"><span class="toc-number">9.</span> <span class="toc-text">mysql 数据库操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Web%E5%BC%80%E5%8F%91%E6%A8%A1%E5%BC%8F"><span class="toc-number">10.</span> <span class="toc-text">Web开发模式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%89%8D%E5%90%8E%E7%AB%AF%E7%9A%84%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81%EF%BC%88token-jwt%EF%BC%89"><span class="toc-number">10.1.</span> <span class="toc-text">前后端的身份认证（token,jwt）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Session%E8%AE%A4%E8%AF%81%E6%9C%BA%E5%88%B6"><span class="toc-number">10.2.</span> <span class="toc-text">Session认证机制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E6%A8%A1%E5%BC%8F"><span class="toc-number">10.3.</span> <span class="toc-text">前后端分离模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#cookie"><span class="toc-number">10.4.</span> <span class="toc-text">cookie</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#session"><span class="toc-number">10.5.</span> <span class="toc-text">session</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#jwt-%E8%AE%A4%E8%AF%81%E6%9C%BA%E5%88%B6"><span class="toc-number">10.6.</span> <span class="toc-text">jwt 认证机制</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/fcd6e84e.html" title="app逆向"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://pic.imgdb.cn/item/6165a94f2ab3f51d91729e58.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="app逆向"/></a><div class="content"><a class="title" href="/posts/fcd6e84e.html" title="app逆向">app逆向</a><time datetime="2024-03-17T16:00:00.000Z" title="发表于 2024-03-18 00:00:00">2024-03-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/89126f01.html" title="ES6学习"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://pic.imgdb.cn/item/6165a94f2ab3f51d91729e58.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ES6学习"/></a><div class="content"><a class="title" href="/posts/89126f01.html" title="ES6学习">ES6学习</a><time datetime="2022-10-01T16:00:00.000Z" title="发表于 2022-10-02 00:00:00">2022-10-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/a324b661.html" title="Vue2复习"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://pic.imgdb.cn/item/6165a94f2ab3f51d91729e58.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Vue2复习"/></a><div class="content"><a class="title" href="/posts/a324b661.html" title="Vue2复习">Vue2复习</a><time datetime="2022-09-19T16:00:00.000Z" title="发表于 2022-09-20 00:00:00">2022-09-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/822e8c32.html" title="node.js的基本使用"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://pic.imgdb.cn/item/6327454f16f2c2beb1d15418.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="node.js的基本使用"/></a><div class="content"><a class="title" href="/posts/822e8c32.html" title="node.js的基本使用">node.js的基本使用</a><time datetime="2022-09-18T16:20:15.000Z" title="发表于 2022-09-19 00:20:15">2022-09-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/220549a8.html" title="天梯赛练习题"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://pic.imgdb.cn/item/6324af2b16f2c2beb1fb043c.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="天梯赛练习题"/></a><div class="content"><a class="title" href="/posts/220549a8.html" title="天梯赛练习题">天梯赛练习题</a><time datetime="2022-09-16T16:49:23.000Z" title="发表于 2022-09-17 00:49:23">2022-09-17</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Aurora</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">简</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"></div><div id="aplayer" class="aplayer no-destroy"  data-id="6759106967" data-server="tencent" data-type="playlist" data-fixed="true" data-listfolded="true" data-order="random" data-theme="#F58EA8"></div><script data-pjax src="//npm.elemecdn.com/pace-js@1.2.4/pace.min.js"></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><div class="app-refresh" id="app-refresh" style="position: fixed;top: -2.2rem;left: 0;right: 0;z-index: 99999;padding: 0 1rem;font-size: 15px;height: 2.2rem;transition: all 0.3s ease;"><div class="app-refresh-wrap" style=" display: flex;color: #fff;height: 100%;align-items: center;justify-content: center;"><label>✨ 有新文章啦！ 👉</label><a href="javascript:void(0)" onclick="location.reload()"><span style="color: #fff;text-decoration: underline;cursor: pointer;">🍗点击食用🍔</span></a></div></div><script>if ('serviceWorker' in navigator) {
+if (navigator.serviceWorker.controller) {
+navigator.serviceWorker.addEventListener('controllerchange', function() {
+showNotification()
+})
+}
+window.addEventListener('load', function() {
+navigator.serviceWorker.register('/sw.js')
+})
+}
+function showNotification() {
+if (GLOBAL_CONFIG.Snackbar) {
+var snackbarBg =
+document.documentElement.getAttribute('data-theme') === 'light' ?
+GLOBAL_CONFIG.Snackbar.bgLight :
+GLOBAL_CONFIG.Snackbar.bgDark
+var snackbarPos = GLOBAL_CONFIG.Snackbar.position
+Snackbar.show({
+text: '✨ 有新文章啦！ 👉',
+backgroundColor: snackbarBg,
+duration: 500000,
+pos: snackbarPos,
+actionText: '🍗点击食用🍔',
+actionTextColor: '#fff',
+onActionClick: function(e) {
+location.reload()
+},
+})
+} else {
+var showBg =
+document.documentElement.getAttribute('data-theme') === 'light' ?
+'#425aef' :
+'#1f1f1f'
+var cssText = `top: 0; background: ${showBg};`
+document.getElementById('app-refresh').style.cssText = cssText
+}
+}</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_footer_beautify_injector_config(){
+    var parent_div_git = document.getElementById('footer-wrap');
+    var item_html = '<div id="workboard"></div><p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v5.4.0" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" data-title="主题版本Butterfly_v4.2.2" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://www.jsdelivr.com/" style="margin-inline:5px" data-title="本站使用JsDelivr为静态资源提供CDN加速" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&amp;logo=jsDelivr" alt=""/></a><a class="github-badge" target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" style="margin-inline:5px" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/陇ICP备-202200913号-e1d492?style=flat&amp;logo=data:image/png;base64,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" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站项目由Github托管" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a><a class="github-badge" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" style="margin-inline:5px" data-title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可" title=""><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&amp;logo=Claris" alt=""/></a></p>';
+    console.log('已挂载butterfly_footer_beautify')
+    parent_div_git.insertAdjacentHTML("beforeend",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_footer_beautify_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_footer_beautify_injector_config();
+  }
+  </script><script async src="/js/runtime.min.js"></script><script async src="/js/ali_font.js"></script><div class="js-pjax"><script async="async">var arr = document.getElementsByClassName('recent-post-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '1.5s');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '30');
+    arr[i].setAttribute('data-wow-iteration', '1');
+  }</script><script async="async">var arr = document.getElementsByClassName('card-widget');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__zoomIn');
+    arr[i].setAttribute('data-wow-duration', '');
+    arr[i].setAttribute('data-wow-delay', '200ms');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('flink-list-card');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__flipInY');
+    arr[i].setAttribute('data-wow-duration', '3s');
+    arr[i].setAttribute('data-wow-delay', '');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('flink-list-card');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__animated');
+    arr[i].setAttribute('data-wow-duration', '3s');
+    arr[i].setAttribute('data-wow-delay', '');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('article-sort-item');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__slideInRight');
+    arr[i].setAttribute('data-wow-duration', '1.5s');
+    arr[i].setAttribute('data-wow-delay', '');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-card');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__flipInY');
+    arr[i].setAttribute('data-wow-duration', '3s');
+    arr[i].setAttribute('data-wow-delay', '');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script><script async="async">var arr = document.getElementsByClassName('site-card');
+for(var i = 0;i<arr.length;i++){
+    arr[i].classList.add('wow');
+    arr[i].classList.add('animate__animated');
+    arr[i].setAttribute('data-wow-duration', '3s');
+    arr[i].setAttribute('data-wow-delay', '');
+    arr[i].setAttribute('data-wow-offset', '');
+    arr[i].setAttribute('data-wow-iteration', '');
+  }</script></div><script defer src="https://cdn.cbd.int/hexo-butterfly-wowjs/lib/wow.min.js"></script><script defer src="https://cdn.cbd.int/hexo-butterfly-wowjs/lib/wow_init.js"></script><!-- hexo injector body_end end --><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/"});</script></body></html>
