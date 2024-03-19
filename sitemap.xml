@@ -178,13 +178,6 @@
   </url>
   
   <url>
-    <loc>https://www.aurora0508.top/tags/Vue2/</loc>
-    <lastmod>2024-03-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.aurora0508.top/tags/ES6/</loc>
     <lastmod>2024-03-19</lastmod>
     <changefreq>weekly</changefreq>
@@ -192,7 +185,14 @@
   </url>
   
   <url>
-    <loc>https://www.aurora0508.top/tags/%E9%80%86%E5%90%91/</loc>
+    <loc>https://www.aurora0508.top/tags/Vue2/</loc>
+    <lastmod>2024-03-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.aurora0508.top/tags/%E5%89%8D%E7%AB%AF/</loc>
     <lastmod>2024-03-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -206,7 +206,7 @@
   </url>
   
   <url>
-    <loc>https://www.aurora0508.top/tags/%E5%89%8D%E7%AB%AF/</loc>
+    <loc>https://www.aurora0508.top/tags/%E9%80%86%E5%90%91/</loc>
     <lastmod>2024-03-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
